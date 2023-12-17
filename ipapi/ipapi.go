@@ -14,7 +14,12 @@ func Parse(str string) Ipapi {
 		ipapi.Ip = ""
 	}
 
+	ipapi.Org = strings.ReplaceAll(ipapi.Org, "'", "")
+	ipapi.Org = strings.ReplaceAll(ipapi.Org, "\"", "")
+	ipapi.Org = strings.ReplaceAll(ipapi.Org, "`", "")
+
 	if ipapi.CountryCode != "" {
+//		country.Name = strings.ReplaceAll(str, "'", "")
 		for _, country := range CountryList {
 			if ipapi.CountryCode == country.Code {
 				ipapi.Region = country.Region

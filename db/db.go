@@ -94,6 +94,8 @@ func (db *DB) CreateTable() {
 	)`
 
 	if _, err := db.conn.Exec(query); err == nil {
+		query = `ALTER SEQUENCE proxies_id_seq RESTART WITH 1`
+		 _, _ = db.conn.Exec(query)
 		fmt.Println("[DB] Database successfully created !")
 	} else {
 		panic(err.Error())

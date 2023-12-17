@@ -3,8 +3,10 @@ package sandbox
 import (
 	"context"
 	"crypto/tls"
+//	"encoding/json"
 	"fmt"
 	"io"
+//	"io/ioutil"
 	"net/http"
 	"net/url"
 	"strings"
@@ -59,7 +61,7 @@ func worker(link, connectMode string) (string, ipapi.Ipapi) {
 
 	proxyClient, _ := url.Parse(fmt.Sprintf("socks5://0.0.0.0:%d", listenPort))
 	httpClient := &http.Client{
-		Timeout: 5 * time.Second,
+		Timeout: 10 * time.Second,
 		Transport: &http.Transport{
 			Proxy: http.ProxyURL(proxyClient),
 			TLSClientConfig: &tls.Config{
@@ -69,7 +71,16 @@ func worker(link, connectMode string) (string, ipapi.Ipapi) {
 	}
 
 	buf := new(strings.Builder)
-	resp, err := httpClient.Get("http://ipinfo.io/json")
+/*
+	res, _ := httpClient.Get("http://api.myip.com/")
+	defer res.Body.Close()
+	resData, _ := ioutil.ReadAll(res.Body)
+	var result map[string]interface{}
+	json.Unmarshal(resData, &result)
+	ip := result["ip"].(string)
+	resp, err := httpClient.Get("http://ipapi.co/"+ip+"/json")
+*/
+	resp, err := httpClient.Get("http://ipapi.co/json")
 	if err != nil {
 		panic(err)
 	}
