@@ -17,6 +17,14 @@ jobs:
         with:
           check-latest: true
 
+      - name: Build LatinaSub-Go
+        run: go build -o ./latinasub ./cmd/latinasub/main.go
+
+      - name: Run LatinaSub-Go
+        env:
+          CONCURRENT: 200
+        run: ./latinasub > update.txt
+
       - name: Delete tag Update if exists
         uses: JeelsBoobz/delete-tag-and-release@master
         with:
@@ -31,14 +39,6 @@ jobs:
           tag_name: Update
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Build LatinaSub-Go
-        run: go build -o ./latinasub ./cmd/latinasub/main.go
-
-      - name: Run LatinaSub-Go
-        env:
-          CONCURRENT: 200
-        run: ./latinasub > update.txt
 
       - name: Update Data
         uses: softprops/action-gh-release@v1
