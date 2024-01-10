@@ -76,6 +76,9 @@ func (v *Vmess) Options() *option.Outbound {
 	case C.V2RayTransportTypeQUIC:
 		// do nothing
 	case C.V2RayTransportTypeGRPC:
+		if v.TransportPath == "" {
+			v.TransportPath = "GRPC"
+		}
 		transport.GRPCOptions.ServiceName = v.TransportPath
 	default:
 		transport = nil

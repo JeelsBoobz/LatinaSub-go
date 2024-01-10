@@ -87,6 +87,9 @@ func (l *Trojan) Options() *option.Outbound {
 	case C.V2RayTransportTypeQUIC:
 		// do nothing
 	case C.V2RayTransportTypeGRPC:
+		if l.GrpcServiceName == "" {
+			l.GrpcServiceName = "GRPC"
+		}
 		transport.GRPCOptions.ServiceName = l.GrpcServiceName
 	default:
 		transport = nil
