@@ -38,7 +38,7 @@ func Start(nodes []string, saveToDB bool) (int, []*sandbox.SandBox) {
 		}
 	}
 
-	fmt.Println("Total concurrent:", Concurrent)
+	fmt.Println("[+] Total concurrent:", Concurrent)
 
 	// Initialize all required modules
 	initAll()
