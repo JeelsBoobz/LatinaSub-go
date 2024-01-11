@@ -45,4 +45,5 @@ jobs:
         with:
           tag_name: Update
           files: update.txt
+          draft: false
           prerelease: true
