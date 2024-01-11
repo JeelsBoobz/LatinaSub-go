@@ -3,6 +3,8 @@ name: Run
 on:
   workflow_dispatch:
 
+permissions: write-all
+
 env:
   DB_URL: ${{ secrets.DB_URL }}
 
@@ -41,9 +43,19 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Update Data
+        id: release
         uses: softprops/action-gh-release@v1
         with:
           tag_name: Update
           files: update.txt
           draft: false
           prerelease: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish release
+        uses: StuYarrow/publish-release@v1.1.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          id: ${{ steps.release.outputs.id }}
