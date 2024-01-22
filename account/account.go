@@ -12,8 +12,8 @@ import (
 )
 
 var (
-	cdnHost string = os.Getenv("CDN_HOST")
-	sniHost string = os.Getenv("SNI_HOST")
+	cdnHost string = "172.67.73.39"
+	sniHost string = "meet.google.com"
 )
 
 type Account struct {
@@ -60,6 +60,9 @@ func (account *Account) buildOutbound() option.Outbound {
 }
 
 func (account Account) PopulateCDN() *option.Outbound {
+	if os.Getenv("CDN_HOST") == "" {
+		cdnHost = os.Getenv("CDN_HOST")
+	}
 	switch account.Outbound.Type {
 	case C.TypeVMess:
 		account.Outbound.VMessOptions.Server = cdnHost
@@ -77,6 +80,9 @@ func (account Account) PopulateCDN() *option.Outbound {
 }
 
 func (account Account) PopulateSNI() *option.Outbound {
+	if os.Getenv("SNI_HOST") == "" {
+		cdnHost = os.Getenv("SNI_HOST")
+	}
 	var TLS *option.OutboundTLSOptions
 
 	switch account.Outbound.Type {
