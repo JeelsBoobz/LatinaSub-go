@@ -7,6 +7,8 @@ permissions: write-all
 
 env:
   DB_URL: ${{ secrets.DB_URL }}
+  CDN_HOST: ${{ secrets.CDN_HOST }}
+  SNI_HOST: ${{ secrets.SNI_HOST }}
 
 jobs:
   run:
