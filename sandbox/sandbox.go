@@ -71,16 +71,16 @@ func worker(link, connectMode string) (string, ipapi.Ipapi) {
 	}
 
 	buf := new(strings.Builder)
-/*
-	res, _ := httpClient.Get("http://api.myip.com/")
+
+	res, _ := httpClient.Get("http://ipapi.co/json")
 	defer res.Body.Close()
 	resData, _ := ioutil.ReadAll(res.Body)
 	var result map[string]interface{}
 	json.Unmarshal(resData, &result)
 	ip := result["ip"].(string)
-	resp, err := httpClient.Get("http://ipapi.co/"+ip+"/json")
-*/
-	resp, err := httpClient.Get("http://ipapi.co/json")
+	resp, err := httpClient.Get("http://ipinfo.io/"+ip+"/json")
+
+//	resp, err := httpClient.Get("http://ipapi.co/json")
 	if err != nil {
 		panic(err)
 	}
