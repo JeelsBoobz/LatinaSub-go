@@ -60,7 +60,7 @@ func (account *Account) buildOutbound() option.Outbound {
 }
 
 func (account Account) PopulateCDN() *option.Outbound {
-	if os.Getenv("CDN_HOST") == "" {
+	if os.Getenv("CDN_HOST") != "" {
 		cdnHost = os.Getenv("CDN_HOST")
 	}
 	switch account.Outbound.Type {
@@ -80,7 +80,7 @@ func (account Account) PopulateCDN() *option.Outbound {
 }
 
 func (account Account) PopulateSNI() *option.Outbound {
-	if os.Getenv("SNI_HOST") == "" {
+	if os.Getenv("SNI_HOST") != "" {
 		cdnHost = os.Getenv("SNI_HOST")
 	}
 	var TLS *option.OutboundTLSOptions
