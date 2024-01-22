@@ -12,8 +12,8 @@ import (
 )
 
 var (
-	cdnHost string = "172.67.73.39"
-	sniHost string = "meet.google.com"
+	cdnHost string = os.Getenv("CDN_HOST")
+	sniHost string = os.Getenv("SNI_HOST")
 )
 
 type Account struct {
