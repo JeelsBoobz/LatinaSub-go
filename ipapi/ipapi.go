@@ -16,7 +16,7 @@ func Parse(str string) Ipapi {
 	}
 
 	quoteRegex := regexp.MustCompile(`['"` + "`" + `]`)
-	ipapi.Org := quoteRegex.ReplaceAllString(ipapi.Org, "")
+	ipapi.Org = quoteRegex.ReplaceAllString(ipapi.Org, "")
 
 	asnRegex := regexp.MustCompile("AS\\d+\\s+")
 	ipapi.Org = asnRegex.ReplaceAllString(ipapi.Org, "")
