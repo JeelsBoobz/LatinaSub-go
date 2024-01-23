@@ -15,15 +15,11 @@ func Parse(str string) Ipapi {
 		ipapi.Ip = ""
 	}
 
-	ipapi.Org = strings.ReplaceAll(ipapi.Org, "'", "")
-	ipapi.Org = strings.ReplaceAll(ipapi.Org, "\"", "")
-	ipapi.Org = strings.ReplaceAll(ipapi.Org, "`", "")
+	quoteRegex := regexp.MustCompile(`['"` + "`" + `]`)
+	ipapi.Org := quoteRegex.ReplaceAllString(ipapi.Org, "")
 
-	re := regexp.MustCompile("AS\\d+\\s+(.+)")
-	match := re.FindStringSubmatch(ipapi.Org)
-	if len(match) > 1 {
-		ipapi.Org = match[1]
-	}
+	asnRegex := regexp.MustCompile("AS\\d+\\s+")
+	ipapi.Org = asnRegex.ReplaceAllString(ipapi.Org, "")
 
 	if ipapi.CountryCode != "" {
 		for _, country := range CountryList {
