@@ -43,7 +43,7 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: artifact
-          path: update.txt
+          path: downloaded
 
       - name: Delete tag Update if exists
         uses: dev-drprasad/delete-tag-and-release@master
@@ -62,7 +62,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           tag_name: Update
-          files: update.txt
+          files: downloaded/update.txt
           draft: false
           prerelease: true
 
