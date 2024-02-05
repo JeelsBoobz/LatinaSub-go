@@ -33,7 +33,7 @@ jobs:
       - uses: actions/upload-artifact@v3
         if: ${{ success() }}
         with:
-          name: update
+          name: artifact
           path: update.txt
 
   Upload-Update:
