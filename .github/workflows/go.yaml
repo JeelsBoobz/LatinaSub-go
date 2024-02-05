@@ -11,7 +11,7 @@ env:
   SNI_HOST: ${{ secrets.SNI_HOST }}
 
 jobs:
-  run:
+  Run:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -28,6 +28,21 @@ jobs:
         env:
           CONCURRENT: 200
         run: ./latinasub > update.txt
+
+      - uses: actions/upload-artifact@v3
+        if: ${{ success() }}
+        with:
+          name: update
+          path: update.txt
+
+  Upload-Update:
+    needs: [Run]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v3
+        with:
+          name: artifact
+          path: update.txt
 
       - name: Delete tag Update if exists
         uses: dev-drprasad/delete-tag-and-release@master
