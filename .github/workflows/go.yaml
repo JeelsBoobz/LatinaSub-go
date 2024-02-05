@@ -9,6 +9,7 @@ env:
   DB_URL: ${{ secrets.DB_URL }}
   CDN_HOST: ${{ secrets.CDN_HOST }}
   SNI_HOST: ${{ secrets.SNI_HOST }}
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
   Run:
@@ -49,15 +50,12 @@ jobs:
         with:
           delete_release: true
           tag_name: Update
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Tag Repo
         uses: richardsimko/update-tag@v1.0.11
         with:
           tag_name: Update
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Update Data
         id: release
@@ -67,12 +65,8 @@ jobs:
           files: update.txt
           draft: false
           prerelease: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Publish release
         uses: StuYarrow/publish-release@v1.1.2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           id: ${{ steps.release.outputs.id }}
