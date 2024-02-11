@@ -47,12 +47,12 @@ jobs:
           name: artifact
           path: downloaded
 
-      - name: Delete tag Update if exists
-        uses: dev-drprasad/delete-tag-and-release@master
+      - name: Delete current release assets
+        uses: 8Mi-Tech/delete-release-assets-action@main
         with:
-          delete_release: true
-          tag_name: Update
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          tag: Update
+          deleteOnlyFromDrafts: false
 
       - name: Tag Repo
         uses: richardsimko/update-tag@v1.0.11
