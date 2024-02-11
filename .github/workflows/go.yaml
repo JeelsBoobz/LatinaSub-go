@@ -34,7 +34,7 @@ jobs:
         if: ${{ success() }}
         with:
           name: artifact
-          path: update.txt
+          path: *.txt
 
   Upload-Update:
     needs: [Run]
@@ -62,7 +62,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           tag_name: Update
-          files: downloaded/update.txt
+          files: downloaded/*.txt
           draft: false
           prerelease: true
 
