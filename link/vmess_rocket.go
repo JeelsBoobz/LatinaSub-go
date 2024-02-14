@@ -71,6 +71,10 @@ func (l *VMessRocket) Parse(u *url.URL) error {
 			l.Tag = firstValueOf(values)
 		case "path":
 			l.TransportPath = firstValueOf(values)
+			if firstValueOf(values) == "" {
+				l.TransportPath = "/"
+			}
+			l.TransportPath = strings.ReplaceAll(strings.ReplaceAll(strings.ReplaceAll(l.TransportPath, ",", ""), "'", ""), "\"", "")
 		case "tls":
 			l.TLS = firstValueOf(values) == "tls"
 		case "obfs":

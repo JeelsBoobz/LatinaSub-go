@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"net/url"
 	"reflect"
+	"strings"
 
 	C "github.com/sagernet/sing-box/constant"
 	"github.com/sagernet/sing/common"
@@ -76,6 +77,10 @@ func (l *Vmess) Parse(u *url.URL) error {
 		l.Security = v.Scy
 	}
 	l.Host = v.Host
+	if v.Path == "" {
+		v.Path = "/"
+	}
+	v.Path = strings.ReplaceAll(strings.ReplaceAll(strings.ReplaceAll(v.Path, ",", ""), "'", ""), "\"", "")
 	l.TransportPath = v.Path
 	switch reflect.TypeOf(v.TLS).Kind() {
 	case reflect.Bool:

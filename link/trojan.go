@@ -68,6 +68,10 @@ func (l *Trojan) Options() *option.Outbound {
 
 	switch l.Type {
 	case C.V2RayTransportTypeHTTP:
+		if l.TransportPath == "" {
+			l.TransportPath = "/"
+		}
+		l.TransportPath = strings.ReplaceAll(strings.ReplaceAll(strings.ReplaceAll(l.TransportPath, ",", ""), "'", ""), "\"", "")
 		transport.HTTPOptions.Path = l.TransportPath
 		if l.Host != "" {
 			transport.HTTPOptions.Host = []string{l.Host}
@@ -80,6 +84,7 @@ func (l *Trojan) Options() *option.Outbound {
 		if l.TransportPath == "" {
 			l.TransportPath = "/"
 		}
+		l.TransportPath = strings.ReplaceAll(strings.ReplaceAll(strings.ReplaceAll(l.TransportPath, ",", ""), "'", ""), "\"", "")
 		transport.WebsocketOptions.Path = l.TransportPath
 		transport.WebsocketOptions.Headers = map[string]option.Listable[string]{
 			"Host": {l.Host},

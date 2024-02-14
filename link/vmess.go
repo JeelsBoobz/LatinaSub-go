@@ -1,6 +1,8 @@
 package link
 
 import (
+	"strings"
+
 	C "github.com/sagernet/sing-box/constant"
 	"github.com/sagernet/sing-box/option"
 )
@@ -57,6 +59,10 @@ func (v *Vmess) Options() *option.Outbound {
 
 	switch v.Transport {
 	case C.V2RayTransportTypeHTTP:
+		if v.TransportPath == "" {
+			v.TransportPath = "/"
+		}
+		v.TransportPath = strings.ReplaceAll(strings.ReplaceAll(strings.ReplaceAll(v.TransportPath, ",", ""), "'", ""), "\"", "")
 		transport.HTTPOptions.Path = v.TransportPath
 		if v.Host != "" {
 			transport.HTTPOptions.Host = []string{v.Host}
@@ -69,6 +75,7 @@ func (v *Vmess) Options() *option.Outbound {
 		if v.TransportPath == "" {
 			v.TransportPath = "/"
 		}
+		v.TransportPath = strings.ReplaceAll(strings.ReplaceAll(strings.ReplaceAll(v.TransportPath, ",", ""), "'", ""), "\"", "")
 		transport.WebsocketOptions.Path = v.TransportPath
 		transport.WebsocketOptions.Headers = map[string]option.Listable[string]{
 			"Host": {v.Host},
