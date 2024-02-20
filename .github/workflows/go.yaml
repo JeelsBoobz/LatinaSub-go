@@ -9,6 +9,7 @@ env:
   DB_URL: ${{ secrets.DB_URL }}
   CDN_HOST: ${{ secrets.CDN_HOST }}
   SNI_HOST: ${{ secrets.SNI_HOST }}
+  CONCURRENT: ${{ secrets.CONCURRENT }}
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
@@ -26,8 +27,6 @@ jobs:
         run: go build -o ./latinasub ./cmd/latinasub/main.go
 
       - name: Run LatinaSub-Go
-        env:
-          CONCURRENT: 200
         run: ./latinasub > update.txt
 
       - uses: actions/upload-artifact@v3
