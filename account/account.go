@@ -49,8 +49,8 @@ func (account *Account) buildOutbound() option.Outbound {
 				outbound.TrojanOptions = val.Options().TrojanOptions
 			case C.TypeShadowsocks:
 				outbound.ShadowsocksOptions = val.Options().ShadowsocksOptions
-			case C.TypeShadowsocksR:
-				outbound.ShadowsocksROptions = val.Options().ShadowsocksROptions
+			/*case C.TypeShadowsocksR:
+				outbound.ShadowsocksROptions = val.Options().ShadowsocksROptions*/
 			}
 		} else if err != nil {
 			fmt.Println("[Error]", err.Error())
@@ -73,8 +73,8 @@ func (account Account) PopulateCDN() *option.Outbound {
 		account.Outbound.TrojanOptions.Server = cdnHost
 	case C.TypeShadowsocks:
 		account.Outbound.ShadowsocksOptions.Server = cdnHost
-	case C.TypeShadowsocksR:
-		account.Outbound.ShadowsocksROptions.Server = cdnHost
+	/*case C.TypeShadowsocksR:
+		account.Outbound.ShadowsocksROptions.Server = cdnHost*/
 	}
 
 	return &account.Outbound
@@ -95,14 +95,14 @@ func (account Account) PopulateSNI() *option.Outbound {
 		TLS = account.Outbound.TrojanOptions.TLS
 	case C.TypeShadowsocks:
 		return &account.Outbound
-	case C.TypeShadowsocksR:
+	/*case C.TypeShadowsocksR:
 		var obfs = "http"
 
 		if m, _ := regexp.MatchString("tls", account.Outbound.ShadowsocksROptions.Obfs); m {
 			obfs = "tls"
 		}
 
-		account.Outbound.ShadowsocksROptions.ObfsParam = fmt.Sprintf("obfs=%s;obfs-host=%s", obfs, sniHost)
+		account.Outbound.ShadowsocksROptions.ObfsParam = fmt.Sprintf("obfs=%s;obfs-host=%s", obfs, sniHost)*/
 	default:
 		return &account.Outbound
 	}
