@@ -47,9 +47,9 @@ func (account *Account) buildOutbound() option.Outbound {
 				outbound.VLESSOptions = val.Options().VLESSOptions
 			case C.TypeTrojan:
 				outbound.TrojanOptions = val.Options().TrojanOptions
-			case C.TypeShadowsocks:
+			/*case C.TypeShadowsocks:
 				outbound.ShadowsocksOptions = val.Options().ShadowsocksOptions
-			/*case C.TypeShadowsocksR:
+			case C.TypeShadowsocksR:
 				outbound.ShadowsocksROptions = val.Options().ShadowsocksROptions*/
 			}
 		} else if err != nil {
@@ -71,9 +71,9 @@ func (account Account) PopulateCDN() *option.Outbound {
 		account.Outbound.VLESSOptions.Server = cdnHost
 	case C.TypeTrojan:
 		account.Outbound.TrojanOptions.Server = cdnHost
-	case C.TypeShadowsocks:
+	/*case C.TypeShadowsocks:
 		account.Outbound.ShadowsocksOptions.Server = cdnHost
-	/*case C.TypeShadowsocksR:
+	case C.TypeShadowsocksR:
 		account.Outbound.ShadowsocksROptions.Server = cdnHost*/
 	}
 
@@ -93,9 +93,9 @@ func (account Account) PopulateSNI() *option.Outbound {
 		TLS = account.Outbound.VLESSOptions.TLS
 	case C.TypeTrojan:
 		TLS = account.Outbound.TrojanOptions.TLS
-	case C.TypeShadowsocks:
+	/*case C.TypeShadowsocks:
 		return &account.Outbound
-	/*case C.TypeShadowsocksR:
+	case C.TypeShadowsocksR:
 		var obfs = "http"
 
 		if m, _ := regexp.MatchString("tls", account.Outbound.ShadowsocksROptions.Obfs); m {
